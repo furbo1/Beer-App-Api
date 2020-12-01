@@ -4,9 +4,14 @@ const beerController = require('./beer.controller')
 
 const authMiddleware = require('../middleware/middleware')
 
+
 router.get('/name', authMiddleware(['ADMIN', 'MANAGER', 'SALES', 'CLIENT']), beerController.getBeerByName );
 
 router.get('/all', beerController.getAllBeers);
+router.get('/filter', beerController.filterBeersByName);
+
+router.get('/:id', beerController.getBeerById);
+
 
 router.post('/create', beerController.createBeer);
 

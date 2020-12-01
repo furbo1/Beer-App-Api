@@ -17,15 +17,36 @@ exports.getAllBeers = async (req, res) => {
 
 };
 
-exports.getProducts = async (req, res) => {   
-     try { let products =  await Product.find({ title: { '$regex': `.*${req.query.title}.*`, '$options': 'i' }} );       
-      if(products) {
-          return res.status(202).json(products);}
-      else {return res.status(400).json({message:'An error has occured.'}); }} 
-      catch (error) { 
-          return res.status('400').send(error); }};
+exports.filterBeersByName = async (req, res) => {
+  try {
+    let beers = await Beer.find({
+      beerName: { $regex: `.*${req.query.beerName}.*`, $options: "i" },
+    });
+    if (beers) {
+      return res.status(202).json(beers);
+    } else {
+      return res.status(400).json({ message: "An error has occured." });
+    }
+  } catch (error) {
+    return res.status("400").send(error);
+  }
+};
 
+exports.getBeerById = async (req, res) => {
+    try{
+        
+        let beer = await Beer.findById({_id: req.params.id});
+        
+        if(beer) {
+            return res.status(202).json(beer);
+        }else {
+            return res.status(400).json({message: 'An error has occured!'});
+        }
+    }catch (error) {
+        return res.status('400').send(error);
+    }
 
+};
 
 
 exports.getBeerByName = async (req, res) => {

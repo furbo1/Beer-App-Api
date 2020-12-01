@@ -12,7 +12,7 @@ router.get('/',authMiddleware(['ADMIN', 'MANAGER', 'SALES']), userController.get
 
 router.get('/:id', authMiddleware(['ADMIN', 'MANAGER', 'SALES', 'CLIENT']), userController.getUser);
 
-router.post('/', userController.createUser);
+router.post('/create', userController.createUser);
 
 router.put('/:id', authMiddleware(['ADMIN', 'MANAGER', 'SALES']), userController.updateUser);
 

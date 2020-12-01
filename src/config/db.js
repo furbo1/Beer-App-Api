@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 
 /* connecting mongoose to database and creating a database called mern-pool*/
 
- mongoose.connect("mongodb+srv://mernblog123:mernblog123@mernblog.1alid.mongodb.net/BeerApp?retryWrites=true&w=majority", { useNewUrlParser: true }); 
+ //mongoose.connect("mongodb+srv://mernblog123:mernblog123@mernblog.1alid.mongodb.net/BeerApp?retryWrites=true&w=majority", { useNewUrlParser: true }); 
+
+mongoose.connect("mongodb://localhost:27017/beer-app", { useNewUrlParser: true });
 
  /* remove alerts from console*/ 
  mongoose.set('useCreateIndex', true);

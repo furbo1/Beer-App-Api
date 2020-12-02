@@ -1,5 +1,7 @@
 var Beer = require('./beer.model')
-
+// const {uploadImage} = require('../utils/uploadImage');
+const cloudinary = require('cloudinary').v2;
+const fs = require('fs') ;
 
 exports.getAllBeers = async (req, res) => {
     try{
@@ -68,15 +70,34 @@ exports.getBeerByName = async (req, res) => {
 
 exports.createBeer = async (req, res) => {
     try{
-        let {beerName, beerDescription, beerAlc, beerPicture} = req.body;
+        let {beerName, beerDescription, beerAlc, beerPicture, file} = req.body;
 
-        let beer = await Beer.create({beerName, beerDescription,beerAlc, beerPicture});
+        file = file.split(';base64,').pop();
 
-        if(beer) {
-            return res.status(202).json({message: 'Beer created!', data: beer});
-        }else {
-            return res.status(400).json({message:'An error has occured.'});
-        }
+        fs.writeFile('image.png', file, {encoding: 'base64'}, function(err) {
+            if(err) return res.status(400).send('erro to create the file');
+            cloudinary.uploader.upload('image.png', async function(error, result) {
+                if(error) {
+                    return res.status(400).send('erro to upload image to the cloudinary');
+                }
+                let beerPicture = result.url;
+                try {
+                    let beer = await Beer.create({beerName, beerDescription,beerAlc, beerPicture});
+                    if(beer) {
+                        return res.status(202).json({message: 'Beer created!', data: beer});
+                    }else {
+                        return res.status(400).json({message:'An error has occured.'});
+                    }
+                } catch (error) {
+                    return res.status(400).json({message: error});
+                }
+                
+               
+            });
+
+        });
+
+        
     } catch (error) {
         return res.status(400).send({message: "Beer not created."});
     }

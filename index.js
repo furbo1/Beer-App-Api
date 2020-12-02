@@ -1,12 +1,24 @@
 const express = require('express')
 const app = express()
 const config = require('./src/config/config')
-var cors = require('cors');
-var bodyParser = require('body-parser');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const cloudinary = require('cloudinary').v2;
 
-var db = require('./src/config/db');
+
+const db = require('./src/config/db');
+const { countDocuments } = require('./src/user/user.model');
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+     limit: "10mb"
+}
+));
+
+cloudinary.config({
+    cloud_name: 'duicagu0n',
+    api_key: process.env.CLOUDINAIRY_KEY || "416923112657195" ,
+    api_secret: process.env.CLOUDINAIRY_SECRET || "SAJwBJdIFRAc88XPzkz23mskhGA"
+});
 
 
 let d = db;

@@ -10,6 +10,8 @@ router.get('/filter', authMiddleware(['ADMIN', 'MANAGER', 'SALES']), userControl
 
 router.get('/',authMiddleware(['ADMIN', 'MANAGER', 'SALES']), userController.getUsers);
 
+// router.get('/reset-password',authMiddleware(['ADMIN', 'MANAGER', 'SALES']), userController.getUsers);
+
 router.get('/:id', authMiddleware(['ADMIN', 'MANAGER', 'SALES', 'CLIENT']), userController.getUser);
 
 router.post('/create', userController.createUser);
@@ -19,6 +21,11 @@ router.put('/:id', authMiddleware(['ADMIN', 'MANAGER', 'SALES']), userController
 router.delete('/:id', authMiddleware(['ADMIN', 'MANAGER']), userController.deleteUser);
 
 router.post('/login', userController.login);
+
+router.post('/reset-password', userController.resetPassword);
+
+router.post('/confirm-reset-password', userController.confirmResetPassword);
+
 
 
 module.exports = router;

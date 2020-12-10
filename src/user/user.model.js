@@ -19,6 +19,14 @@ var UserSchema = new Schema({
         select: false
 
     },
+    resetPasswordCode:{
+        type: Number,
+        select: false
+    },
+    isResetingPassword:{
+        type: Boolean,
+        select: false
+    },
     role: { 
         type: String,
         enum: [
@@ -38,6 +46,10 @@ UserSchema.methods.generatePassword = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
 
+UserSchema.methods.updatePassword = function (password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+};
+
 
 UserSchema.pre("save", async function () {
     this.password = await this.generatePassword(this.password);
@@ -50,7 +62,4 @@ var User = mongoose.model('User', UserSchema);
 module.exports = User;
 
 
-//MVC PATTERN
-// HTTP ARQUITECTURE
-// RESTful + React
-// mongoose 
+ 

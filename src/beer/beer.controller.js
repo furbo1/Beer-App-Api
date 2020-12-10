@@ -70,7 +70,7 @@ exports.getBeerByName = async (req, res) => {
 
 exports.createBeer = async (req, res) => {
     try{
-        let {beerName, beerDescription, beerAlc, beerPicture, file} = req.body;
+        let {beerName, beerDescription, beerAlc, file} = req.body;
 
         file = file.split(';base64,').pop();
 

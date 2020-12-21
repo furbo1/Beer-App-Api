@@ -5,8 +5,9 @@ const fs = require('fs') ;
 
 exports.getAllBeers = async (req, res) => {
     try{
-        
-        let beers = await Beer.find({});
+        let page = parseInt(req.query.page);
+        let size = parseInt(req.query.size);
+        let beers = await Beer.find({}, {}, {skip: (page * size), limit: size, sort: { _id: -1} });
         
         if(beers) {
             return res.status(202).json(beers);

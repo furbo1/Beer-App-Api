@@ -30,9 +30,7 @@ var UserSchema = new Schema({
     role: { 
         type: String,
         enum: [
-            ROLE_TYPES.MANAGER,
-            ROLE_TYPES.MARKETING,
-            ROLE_TYPES.SALES,
+            ROLE_TYPES.BUSINESS,
             ROLE_TYPES.ADMIN,
             ROLE_TYPES.CLIENT
 

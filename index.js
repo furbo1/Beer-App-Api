@@ -32,8 +32,7 @@ d.on("disconnected", function () {
 
 d.on("error", function (error) {
     console.log('Connection error: ' + error);
-});
-
+})
 
 require('./src/config/routes')(app);
 
